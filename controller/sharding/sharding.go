@@ -117,9 +117,14 @@ func LegacyDistributionFunction(replicas int) DistributionFunction {
 		} else {
 			h := fnv.New32a()
 			_, _ = h.Write([]byte(id))
-			shard := int32(h.Sum32() % uint32(replicas))
-			log.Debugf("Cluster with id=%s will be processed by shard %d", id, shard)
-			return int(shard)
+			if replicas > 0 && replicas <= math.MaxUint32 {
+				shard := int32(h.Sum32() % uint32(replicas))
+				log.Debugf("Cluster with id=%s will be processed by shard %d", id, shard)
+				return int(shard)
+			} else {
+				log.Warnf("The number of replicas (%d) is out of the valid range", replicas)
+				return 0
+			}
 		}
 	}
 }
