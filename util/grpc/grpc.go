@@ -125,7 +125,7 @@ func TestTLS(address string, dialTime time.Duration) (*TLSTestResult, error) {
 	}
 	var testResult TLSTestResult
 	var tlsConfig tls.Config
-	tlsConfig.InsecureSkipVerify = true
+	tlsConfig.InsecureSkipVerify = false
 	creds := credentials.NewTLS(&tlsConfig)
 
 	// Set timeout when dialing to the server
