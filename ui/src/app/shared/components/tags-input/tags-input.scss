@@ -51,5 +51,9 @@
             right: 2px;
             top: 8px;
         }
+
+        .theme-dark & {
+            background: $argo-color-gray-5;
+        }
     }
 }
